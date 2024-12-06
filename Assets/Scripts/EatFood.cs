@@ -1,3 +1,9 @@
+/*
+ * Author: Jacie Thoo Yixuan
+ * Date: 4/12/2024
+ * Description: Handles eating food mechanic
+ */
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
