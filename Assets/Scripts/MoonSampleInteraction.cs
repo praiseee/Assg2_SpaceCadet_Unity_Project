@@ -3,8 +3,8 @@ using TMPro;
 
 public class MoonSampleInteraction : MonoBehaviour
 {
-    public TextMesh collectedText; 
-    private int moonSamplesCollected = 0;
+    public TMP_Text CollectedText; // For the cup's UI
+    private int moonSamplesCollected = 0; // Track samples collected
 
     private void Start()
     {
@@ -17,6 +17,7 @@ public class MoonSampleInteraction : MonoBehaviour
         {
             // Handle moon sample collection
             moonSamplesCollected++;
+
             MoonText();
             Debug.Log($"Moon Sample collected! Total: {moonSamplesCollected}");
 
@@ -27,6 +28,6 @@ public class MoonSampleInteraction : MonoBehaviour
 
     private void MoonText()
     {
-        collectedText.text = $"Moon Samples: {moonSamplesCollected}";
+        CollectedText.text = $"Moon Samples: {moonSamplesCollected}";
     }
 }
