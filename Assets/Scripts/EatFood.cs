@@ -13,6 +13,9 @@ public class EatFood : MonoBehaviour
 {
     [SerializeField] private XRSocketInteractor socketInteractor;
     [SerializeField] private AudioSource eatingSound;
+    public Collider triggerCollider;
+
+    public MissionManager missionManager;
 
     public void EatingFood()
     {
@@ -22,5 +25,23 @@ public class EatFood : MonoBehaviour
         eatingSound.Play();
 
         Destroy(currentFood.transform.gameObject);
+        MarkMissionAsCompleted();
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            missionManager.PlayMissionDialogue("Eat", false);
+            triggerCollider.enabled = false;
+        }
+    }
+
+    public void MarkMissionAsCompleted()
+    {
+        if (missionManager != null)
+        {
+            missionManager.CompleteMission("Eat");
+        }
     }
 }
