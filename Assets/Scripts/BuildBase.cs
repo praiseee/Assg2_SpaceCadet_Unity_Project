@@ -17,6 +17,19 @@ public class BuildBase : MonoBehaviour
     public GameObject moonBase;
     public int polesSetUp = 0;
 
+    public Collider triggerCollider;
+
+    public MissionManager missionManager;
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            missionManager.PlayMissionDialogue("Eat", false);
+            triggerCollider.enabled = false;
+        }
+    }
+
     /// <summary>
     /// When player places a pole (To call in XR Socket Interactor on keycard)
     /// </summary>
@@ -32,6 +45,15 @@ public class BuildBase : MonoBehaviour
         if (polesSetUp == 4)
         {
             moonBase.SetActive(true);
+            MarkMissionAsCompleted();
+        }
+    }
+
+    public void MarkMissionAsCompleted()
+    {
+        if (missionManager != null)
+        {
+            missionManager.CompleteMission("Base");
         }
     }
 }
