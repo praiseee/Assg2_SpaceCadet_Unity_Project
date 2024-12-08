@@ -28,15 +28,24 @@ public class EatFood : MonoBehaviour
         MarkMissionAsCompleted();
     }
 
+    /// <summary>
+    /// When player enters the fridge trigger area
+    /// play the audio to guide player to complete the mission
+    /// </summary>
+    /// <param name="other"></param>
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
             missionManager.PlayMissionDialogue("Eat", false);
-            triggerCollider.enabled = false;
+            triggerCollider.enabled = false; // Turn off collider so audio doesn't play again
         }
     }
 
+    
+    /// <summary>
+    /// Marks "Eat" mission as completed and plays audio from MissionManager
+    /// </summary>  
     public void MarkMissionAsCompleted()
     {
         if (missionManager != null)

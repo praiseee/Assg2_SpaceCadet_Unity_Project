@@ -26,6 +26,7 @@ public class MissionManager : MonoBehaviour
     private void Start()
     {
         // False = not completed, True = completed
+        missionStates.Add("LogIn", false);
         missionStates.Add("Keycard", false);
         missionStates.Add("Base", false);
         missionStates.Add("Eat", false);
@@ -71,53 +72,60 @@ public class MissionManager : MonoBehaviour
         // Dialogue range for every mission
         switch (missionName)
         {
+            case "LogIn":
+                if (isCompleted) // Already completed
+                    dialogueSystem.PlayDialogueRange(0, 2);
+                else // Not completed
+                    dialogueSystem.PlayDialogueRange(3, 4);
+                break;
+
             case "Keycard":
                 if (isCompleted) // Already completed
-                    dialogueSystem.PlayDialogueRange(0, 1);
+                    dialogueSystem.PlayDialogueRange(5, 5);
                 else // Not completed
-                    dialogueSystem.PlayDialogueRange(2, 3);
+                    dialogueSystem.PlayDialogueRange(6, 6);
                 break;
 
             case "Base":
                 if (isCompleted) // Already completed
-                    dialogueSystem.PlayDialogueRange(4, 5);
+                    dialogueSystem.PlayDialogueRange(7, 8);
                 else // Not completed
-                    dialogueSystem.PlayDialogueRange(6, 7);
+                    dialogueSystem.PlayDialogueRange(9, 10);
                 break;
 
             case "Eat":
                 if (isCompleted) // Already completed
-                    dialogueSystem.PlayDialogueRange(2, 3);
+                    dialogueSystem.PlayDialogueRange(11, 11);
                 else // Not completed
-                    dialogueSystem.PlayDialogueRange(0, 1);
+                    dialogueSystem.PlayDialogueRange(12, 12);
                 break;
 
             case "PlantFlag":
                 if (isCompleted) // Already completed
-                    dialogueSystem.PlayDialogueRange(12, 13);
+                    dialogueSystem.PlayDialogueRange(13, 13);
                 else // Not completed
-                    dialogueSystem.PlayDialogueRange(14, 15);
+                    dialogueSystem.PlayDialogueRange(14, 14);
                 break;
 
             case "SolarPanel":
                 if (isCompleted) // Already completed
-                    dialogueSystem.PlayDialogueRange(16, 17);
+                    dialogueSystem.PlayDialogueRange(15, 15);
                 else // Not completed
-                    dialogueSystem.PlayDialogueRange(18, 19);
+                    dialogueSystem.PlayDialogueRange(16, 16);
                 break;
 
             case "FixRover":
                 if (isCompleted) // Already completed
-                    dialogueSystem.PlayDialogueRange(20, 21);
+                    dialogueSystem.PlayDialogueRange(17, 17);
                 else // Not completed
-                    dialogueSystem.PlayDialogueRange(22, 23);
+                    dialogueSystem.PlayDialogueRange(18, 18);
                 break;
 
             case "CollectSamples":
                 if (isCompleted) // Already completed
-                    dialogueSystem.PlayDialogueRange(24, 25);
+                    dialogueSystem.PlayDialogueRange(19, 19);
                 else // Not completed
-                    dialogueSystem.PlayDialogueRange(26, 27);
+                    dialogueSystem.PlayDialogueRange(20, 20);
                 break;
 
             default:

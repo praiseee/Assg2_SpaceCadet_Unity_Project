@@ -8,6 +8,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit.Interactors;
+using static UnityEngine.EventSystems.EventTrigger;
 
 public class BuildBase : MonoBehaviour
 {
@@ -21,12 +22,17 @@ public class BuildBase : MonoBehaviour
 
     public MissionManager missionManager;
 
+
+    /// <summary>
+    /// When player enters the trigger area
+    /// play the audio to guide player to complete the mission
+    /// </summary>
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
             missionManager.PlayMissionDialogue("Eat", false);
-            triggerCollider.enabled = false;
+            triggerCollider.enabled = false; // Turn off collider so audio doesn't play again
         }
     }
 
@@ -39,6 +45,9 @@ public class BuildBase : MonoBehaviour
         CheckBaseStatus();
     }
 
+    /// <summary>
+    /// Check if base has been built 
+    /// </summary>
     public void CheckBaseStatus()
     {
         // Set number of poles needed for the base to be built
@@ -49,6 +58,9 @@ public class BuildBase : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Marks "Base" mission as completed and plays audio from MissionManager
+    /// </summary>
     public void MarkMissionAsCompleted()
     {
         if (missionManager != null)
