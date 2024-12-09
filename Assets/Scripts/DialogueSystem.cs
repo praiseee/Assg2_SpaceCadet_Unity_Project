@@ -31,9 +31,6 @@ public class DialogueSystem : MonoBehaviour
     // Time before next line
     public float delayBetweenLines = 0.5f;
 
-    // What line it is now
-    private int currentLineIndex = 0;
-
     /// <summary>
     /// Play specific dialogue lines 
     /// </summary>
