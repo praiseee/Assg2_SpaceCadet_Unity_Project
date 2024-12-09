@@ -12,6 +12,8 @@ public class MoonSampleInteraction : MonoBehaviour
 {
     public MissionManager missionManager;
 
+    public AudioSource moonAudio;
+
     /// <summary>
     /// Cup's UI
     /// </summary>
@@ -52,6 +54,9 @@ public class MoonSampleInteraction : MonoBehaviour
                 // Handle moon sample collection
                 moonSamplesCollected++;
 
+                // Play Moon Collected Audio
+                PlayMoonAudio();
+
                 // Update the UI with the new count
                 MoonText();
                 Debug.Log($"Moon Sample collected! Total: {moonSamplesCollected}");
@@ -76,6 +81,21 @@ public class MoonSampleInteraction : MonoBehaviour
     {
         // Update the UI text to display the current number of moon samples collected
         CollectedText.text = $"Moon Samples: {moonSamplesCollected}/6";
+    }
+
+    /// <summary>
+    /// Plays the sound for moon sample collection
+    /// </summary>
+    private void PlayMoonAudio()
+    {
+        if (moonAudio != null) // Ensure the AudioSource is assigned
+        {
+            moonAudio.Play();
+        }
+        else
+        {
+            Debug.LogWarning("Moon collection audio source is not assigned");
+        }
     }
 
     /// <summary>
