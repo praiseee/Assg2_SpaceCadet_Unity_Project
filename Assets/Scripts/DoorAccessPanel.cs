@@ -48,8 +48,14 @@ public class DoorAccessPanel : MonoBehaviour
     /// </summary>
     [SerializeField] public bool doorOpened = false;
 
+    /// <summary>
+    /// Stores MissionManager
+    /// </summary>
     public MissionManager missionManager;
 
+    /// <summary>
+    /// Stores KeycardTrigger (area player steps in to hear start mission dialogue
+    /// </summary>
     public KeycardTrigger keycardTrigger;
 
     /// <summary>
@@ -114,6 +120,8 @@ public class DoorAccessPanel : MonoBehaviour
         PlaySound(); // Play door opening sound
         doorOpened = true; // Mark door as opened
         Debug.Log("Door is opening");
+
+        // Call MarkMissionAsCompleted from keyCardTrigger script
         keycardTrigger.MarkMissionAsCompleted();
     }
 }

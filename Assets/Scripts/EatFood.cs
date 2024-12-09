@@ -17,6 +17,10 @@ public class EatFood : MonoBehaviour
 
     public MissionManager missionManager;
 
+    /// <summary>
+    /// Destroys the food after it is in the mouth socket
+    /// To be assigned in the mouth xr socket under hover/selected
+    /// </summary>
     public void EatingFood()
     {
         var currentFood = socketInteractor.interactablesHovered[0];

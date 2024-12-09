@@ -13,6 +13,9 @@ public class SolarPanel : MonoBehaviour
 
     public MissionManager missionManager;
 
+    /// <summary>
+    /// Functionality for placing solar panel
+    /// </summary>
     public void PlaceSolarPanel()
     {
         if (!missionCompleted)
@@ -26,6 +29,9 @@ public class SolarPanel : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Play start mission dialogue when the solar panel is held
+    /// </summary>
     public void StartMission()
     {
         if (!missionStarted)
@@ -35,6 +41,9 @@ public class SolarPanel : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Marks "SolarPanel" mission as completed and plays audio from MissionManager
+    /// </summary>
     public void MarkMissionAsCompleted()
     {
         if (missionManager != null)

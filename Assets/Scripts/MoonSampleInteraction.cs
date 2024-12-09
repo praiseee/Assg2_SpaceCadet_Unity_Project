@@ -36,6 +36,9 @@ public class MoonSampleInteraction : MonoBehaviour
         CollectedText.text = $"Moon Samples: {moonSamplesCollected}";
     }
 
+    /// <summary>
+    /// Play start mission dialogue when the cup is held
+    /// </summary>
     public void StartMission()
     {
         if (!missionStarted)
@@ -45,6 +48,10 @@ public class MoonSampleInteraction : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Marks "CollectSamples" mission as completed and plays audio from MissionManager
+    /// Call when the mission conditions are met (e.g. 10 samples collected)
+    /// </summary>
     public void MarkMissionAsCompleted()
     {
         if (missionManager != null)

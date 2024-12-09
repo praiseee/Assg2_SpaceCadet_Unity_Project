@@ -13,6 +13,10 @@ public class PlantFlag : MonoBehaviour
 
     public MissionManager missionManager;
 
+    /// <summary>
+    /// Plant flag function
+    /// To be assigned in inspector under FlagSocket Select entered
+    /// </summary>
     public void PlantingFlag()
     {
         if (!missionCompleted)
@@ -26,6 +30,9 @@ public class PlantFlag : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Play start mission dialogue when the flag is held
+    /// </summary>
     public void StartMission()
     {
         if (!missionStarted)
@@ -35,6 +42,9 @@ public class PlantFlag : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Marks "PlantFlag" mission as completed and plays audio from MissionManager
+    /// </summary>
     public void MarkMissionAsCompleted()
     {
         if (missionManager != null)
