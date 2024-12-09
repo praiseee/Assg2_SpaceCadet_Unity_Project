@@ -6,6 +6,11 @@ public class MoonSampleInteraction : MonoBehaviour
     public TMP_Text CollectedText; // For the cup's UI
     private int moonSamplesCollected = 0; // Track samples collected
 
+    private bool missionStarted = false;
+    private bool missionCompleted = false;
+
+    public MissionManager missionManager;
+
     private void Start()
     {
         MoonText();
@@ -29,5 +34,23 @@ public class MoonSampleInteraction : MonoBehaviour
     private void MoonText()
     {
         CollectedText.text = $"Moon Samples: {moonSamplesCollected}";
+    }
+
+    public void StartMission()
+    {
+        if (!missionStarted)
+        {
+            missionStarted = true;
+            missionManager.PlayMissionDialogue("CollectSamples", false);
+        }
+    }
+
+    public void MarkMissionAsCompleted()
+    {
+        if (missionManager != null)
+        {
+            missionManager.CompleteMission("CollectSamples");
+            missionCompleted = true;
+        }
     }
 }

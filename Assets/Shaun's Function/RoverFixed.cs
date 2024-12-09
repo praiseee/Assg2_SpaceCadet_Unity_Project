@@ -9,6 +9,10 @@ public class RoverFixed : MonoBehaviour
     public bool cameraFixed = false;
     public bool panelFixed = false;
 
+
+    public MissionManager missionManager;
+    public RoverTrigger roverTrigger;
+
     // When fixed wheel
     public void FixWheel()
     {
@@ -48,5 +52,6 @@ public class RoverFixed : MonoBehaviour
     void FixComplete()
     {
         Debug.Log("Nice.");
+        roverTrigger.MarkMissionAsCompleted();
     }
 }

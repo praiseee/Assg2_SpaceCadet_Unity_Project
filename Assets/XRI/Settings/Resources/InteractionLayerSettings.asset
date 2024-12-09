@@ -18,9 +18,9 @@ MonoBehaviour:
   - Pole
   - SolarPanel
   - Flag
-  - 
-  - 
-  - 
+  - RoverWheel
+  - RoverCamera
+  - RoverSolar
   - 
   - 
   - 
