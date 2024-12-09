@@ -50,6 +50,8 @@ public class DoorAccessPanel : MonoBehaviour
 
     public MissionManager missionManager;
 
+    public KeycardTrigger keycardTrigger;
+
     /// <summary>
     /// When player picks up keycard (To call in XR Grab Interactable on keycard)
     /// </summary>
@@ -112,14 +114,6 @@ public class DoorAccessPanel : MonoBehaviour
         PlaySound(); // Play door opening sound
         doorOpened = true; // Mark door as opened
         Debug.Log("Door is opening");
-        MarkMissionAsCompleted();
-    }
-
-    public void MarkMissionAsCompleted()
-    {
-        if (missionManager != null)
-        {
-            missionManager.CompleteMission("Keycard");
-        }
+        keycardTrigger.MarkMissionAsCompleted();
     }
 }

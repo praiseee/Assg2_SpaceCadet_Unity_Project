@@ -73,56 +73,56 @@ public class MissionManager : MonoBehaviour
         switch (missionName)
         {
             case "LogIn":
-                if (isCompleted) // Already completed
+                if (!isCompleted) // Already completed
                     dialogueSystem.PlayDialogueRange(0, 2);
                 else // Not completed
                     dialogueSystem.PlayDialogueRange(3, 4);
                 break;
 
             case "Keycard":
-                if (isCompleted) // Already completed
+                if (!isCompleted) // Already completed
                     dialogueSystem.PlayDialogueRange(5, 5);
                 else // Not completed
                     dialogueSystem.PlayDialogueRange(6, 6);
                 break;
 
             case "Base":
-                if (isCompleted) // Already completed
+                if (!isCompleted) // Already completed
                     dialogueSystem.PlayDialogueRange(7, 8);
                 else // Not completed
                     dialogueSystem.PlayDialogueRange(9, 10);
                 break;
 
             case "Eat":
-                if (isCompleted) // Already completed
+                if (!isCompleted) // Already completed
                     dialogueSystem.PlayDialogueRange(11, 11);
                 else // Not completed
                     dialogueSystem.PlayDialogueRange(12, 12);
                 break;
 
             case "PlantFlag":
-                if (isCompleted) // Already completed
+                if (!isCompleted) // Already completed
                     dialogueSystem.PlayDialogueRange(13, 13);
                 else // Not completed
                     dialogueSystem.PlayDialogueRange(14, 14);
                 break;
 
             case "SolarPanel":
-                if (isCompleted) // Already completed
+                if (!isCompleted) // Already completed
                     dialogueSystem.PlayDialogueRange(15, 15);
                 else // Not completed
                     dialogueSystem.PlayDialogueRange(16, 16);
                 break;
 
             case "FixRover":
-                if (isCompleted) // Already completed
+                if (!isCompleted) // Already completed
                     dialogueSystem.PlayDialogueRange(17, 17);
                 else // Not completed
                     dialogueSystem.PlayDialogueRange(18, 18);
                 break;
 
             case "CollectSamples":
-                if (isCompleted) // Already completed
+                if (!isCompleted) // Already completed
                     dialogueSystem.PlayDialogueRange(19, 19);
                 else // Not completed
                     dialogueSystem.PlayDialogueRange(20, 20);

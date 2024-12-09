@@ -31,7 +31,7 @@ public class BuildBase : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            missionManager.PlayMissionDialogue("Eat", false);
+            missionManager.PlayMissionDialogue("Base", false);
             triggerCollider.enabled = false; // Turn off collider so audio doesn't play again
         }
     }
