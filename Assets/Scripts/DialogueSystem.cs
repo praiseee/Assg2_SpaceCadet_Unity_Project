@@ -24,6 +24,7 @@ public class DialogueSystem : MonoBehaviour
 
     // Audio
     public AudioSource audioSource;
+    public AudioSource backgroundSound;
 
     // Subs
     public TextMeshProUGUI subtitleTextUI;
@@ -34,6 +35,13 @@ public class DialogueSystem : MonoBehaviour
     /// <summary>
     /// Play specific dialogue lines 
     /// </summary>
+    /// 
+
+    private void Start()
+    {
+        backgroundSound.Play();
+    }
+
     public void PlayDialogueRange(int startIndex, int endIndex)
     {
         if (startIndex < 0 || endIndex >= dialogueLines.Count || startIndex > endIndex)
