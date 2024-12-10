@@ -1,7 +1,8 @@
 /*
  * Author: Jacie Thoo Yixuan
+ * Author:Hoo Ying Qi Praise
  * Date: 8/12/2024
- * Description: Handles missions
+ * Description: Handles missions and final cutscenes
  */
 
 using System.Collections;
