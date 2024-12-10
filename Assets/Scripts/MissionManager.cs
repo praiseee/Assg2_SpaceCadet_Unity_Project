@@ -7,9 +7,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Playables;
 
 public class MissionManager : MonoBehaviour
 {
+    /// <summary>
+    ///  Reference to the PlayableDirector that manages the Timeline
+    /// </summary>
+    public PlayableDirector timelineDirector;
+
     /// <summary>
     /// Stores DialogueSystem
     /// </summary>
@@ -49,10 +55,32 @@ public class MissionManager : MonoBehaviour
 
             // Play post-mission dialogue
             PlayMissionDialogue(missionName, true);
+
+            // Check if all missions are completed
+            if (AllMissionsCompleted())
+            {
+                Debug.Log("All missions completed! Playing cutscene...");
+                PlayTimeline(); // Play the Timeline
+            }
         }
         else
         {
             Debug.LogError($"Mission '{missionName}' not found in MissionManager.");
+        }
+    }
+
+    /// <summary>
+    /// Plays the Timeline cutscene
+    /// </summary>
+    public void PlayTimeline()
+    {
+        if (timelineDirector != null)
+        {
+            timelineDirector.Play(); // Start the Timeline playback
+        }
+        else
+        {
+            Debug.LogError("TimelineDirector not assigned in MissionManager.");
         }
     }
 
