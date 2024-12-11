@@ -20,9 +20,9 @@ MonoBehaviour:
   - Flag
   - RoverWheel
   - RoverCamera
-  - RoverSolar
-  - 
-  - 
+  - RoverPanel
+  - RoverAntenna
+  - RoverPipe
   - 
   - 
   - 

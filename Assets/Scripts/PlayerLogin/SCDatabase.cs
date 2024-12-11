@@ -1,3 +1,9 @@
+/*
+ * Author: Loh Shau Ern Shaun
+ * Date: 9/12/2024
+ * Description: Handles logging in, signing in and getting player data from the saved databases
+ */
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,7 +13,7 @@ using Firebase.Extensions;
 using Firebase.Database;
 using TMPro;
 
-public class Database : MonoBehaviour
+public class SCDatabase : MonoBehaviour
 {
     // Sign In UI input fields 
     public TMP_InputField emailS;
@@ -18,12 +24,25 @@ public class Database : MonoBehaviour
     public TMP_InputField emailL;
     public TMP_InputField passwordL;
 
+    // Sign up canvas
+    public GameObject signupCanvas;
+    // Login canvas
+    public GameObject loginCanvas;
+    // Logout canvas
+    public GameObject logoutCanvas;
+
+    // String to display stored uid
+    public string storedUID;
+
     // Database ref
     DatabaseReference dbDataRef;
     // Auth ref
     Firebase.Auth.FirebaseAuth dbAuthRef;
     // Player path ref
     DatabaseReference playerRef;
+
+    // Reference to MissionManager
+    public MissionManager missionManager;
 
     // When the scene is started
     void Awake()
@@ -74,8 +93,9 @@ public class Database : MonoBehaviour
                 // Create database based on email provided
                 CreatePlayerDatabase(playerUID, displayName);
 
-                // Create and save details in AccountManager
-                //CopyToAccManager(playerUID, displayName, false, false, false, false, false, false);
+                // Switch to login canvas after creating account
+                signupCanvas.SetActive(false);
+                loginCanvas.SetActive(true);
             });
     }
 
@@ -92,7 +112,8 @@ public class Database : MonoBehaviour
         playerRef
             .Child(uidNew)
             .SetRawJsonValueAsync(json)
-            .ContinueWith(task => {
+            .ContinueWith(task =>
+            {
                 if (task.IsFaulted)
                 {
                     Debug.LogError("Failed to set JSON data: " + task.Exception);
@@ -103,9 +124,7 @@ public class Database : MonoBehaviour
                 }
 
 
-
                 Debug.LogFormat("UID: {0}, DisplayName: {1}, Mission1: {2}, Mission2: {3}, Mission3: {4}, Mission4: {5}, Mission5: {6}, Mission6: {7}, ", uidNew, displayName, false, false, false, false, false, false);
-
                 Debug.Log("Database created!");
             });
     }
@@ -169,17 +188,6 @@ public class Database : MonoBehaviour
                     return;
                 }
 
-                // Initialize data variables
-                /*string uidSave = "";
-                string displayName = "";
-                bool mission1Status = null;
-                bool mission2Status = null;
-                bool mission3Status = null;
-                bool mission4Status = null;
-                bool mission5Status = null;
-                bool mission6Status = null;
-                */
-
                 // start retrieving values and printout
                 DataSnapshot snapshot = task.Result;
                 if (snapshot.Exists)
@@ -195,20 +203,53 @@ public class Database : MonoBehaviour
                         {
                             Debug.Log("Data found!");
                             // Insert post account login here:
-                            /* Retrieve data from servers
-                            uidSave = accPath.uid;
-                            displayName = accPath.displayName;
-                            bool mission1Status = accPath.mission1;
-                            bool mission2Status = accPath.mission2;
-                            bool mission3Status = accPath.mission3;
-                            bool mission4Status = accPath.mission4;
-                            bool mission5Status = accPath.mission5;
-                            bool mission6Status = accPath.mission6;
-                            */
+                            // Retrieve data from servers
                             Debug.LogFormat("UID: {0}, DisplayName: {1}, Mission 1: {2}, Mission 2: {3}, Mission 3: {4}, Mission 4: {5}, Mission 5: {6}, Mission 6: {7}", accPath.UID, accPath.Username, accPath.Mission1, accPath.Mission2, accPath.Mission3, accPath.Mission4, accPath.Mission5, accPath.Mission6);
 
+                            storedUID = accPath.UID;
+
                             // Save details in AccountManager
-                            //CopyToAccManager(accPath.UID, accPath.Username, accPath.Mission1, accPath.Mission2, accPath.Mission3, accPath.Mission4, accPath.Mission5, accPath.Mission6);
+                            //Check thru each individual task progress
+                            if (accPath.Mission1)
+                            {
+                                // Skip base building
+                                Debug.Log("Skipping base building mission!");
+                                missionManager.CheckProgress("Base");
+                            }
+                            if (accPath.Mission2)
+                            {
+                                // Skip eating
+                                Debug.Log("Skipping eating mission!");
+                                missionManager.CheckProgress("Eat");
+                            }
+                            if (accPath.Mission3)
+                            {
+                                // Skip planting flag
+                                Debug.Log("Skipping planting the flag mission!");
+                                missionManager.CheckProgress("PlantFlag");
+                            }
+                            if (accPath.Mission4)
+                            {
+                                // Skip solar panel building
+                                Debug.Log("Skipping building solar panel mission!");
+                                missionManager.CheckProgress("SolarPanel");
+                            }
+                            if (accPath.Mission5)
+                            {
+                                // Skip fixing rover
+                                Debug.Log("Skipping fixing rover mission!");
+                                missionManager.CheckProgress("FixRover");
+                            }
+                            if (accPath.Mission6)
+                            {
+                                // Skip collecting samples
+                                Debug.Log("Skipping collecting samples mission!");
+                                missionManager.CheckProgress("CollectSamples");
+                            }
+
+                            // Switch to logout canvas after creating account
+                            loginCanvas.SetActive(false);
+                            logoutCanvas.SetActive(true);
 
                             // After finding player database, end loop
                             break;
@@ -217,25 +258,91 @@ public class Database : MonoBehaviour
                         {
                             Debug.Log("No data was found in account!");
                         }
-                    }
+                    } // End of loop here
                 }
             });
     }
 
-    // When called, save to the account manager object
-    /*public void CopyToAccManager(string uid, string username, bool mission1, bool mission2, bool mission3, bool mission4, bool mission5, bool mission6)
+    // Update status of missions
+    public void UpdateTaskStatus(string mission)
     {
-        // Get reference to Account Manager obj
-        AccountManager accManager = GameObject.Find("/AccountManager").GetComponent<AccountManager>();
-        // Save the data to the Account Manager obj
-        accManager.SetPlayerData(uid, username, mission1, mission2, mission3, mission4, mission5, mission6);
+        // Set the mission to be updated
+        string currentMission = "";
 
-        Debug.Log("Details copied");
-    }*/
+        if (mission == "Base")
+        {
+            currentMission = "Mission1";
+        }
+        else if (mission == "Eat")
+        {
+            currentMission = "Mission2";
+        }
+        else if (mission == "PlantFlag")
+        {
+            currentMission = "Mission3";
+        }
+        else if (mission == "SolarPanel")
+        {
+            currentMission = "Mission4";
+        }
+        else if (mission == "FixRover")
+        {
+            currentMission = "Mission5";
+        }
+        else if (mission == "CollectSamples")
+        {
+            currentMission = "Mission6";
+        }
 
-    // Update is called once per frame
-    void Update()
-    {
+        Debug.Log(currentMission + " completed!");
 
+        // Find the account database with uid
+        FirebaseDatabase.DefaultInstance
+            .GetReference("players")
+            .GetValueAsync()
+            .ContinueWithOnMainThread(task =>
+            {
+                if (task.IsFaulted)
+                {
+                    Debug.LogError("Sorry, there was an error! ERROR: " + task.Exception);
+                    return; // exit from attempt
+                }
+            
+                if (!task.IsCompletedSuccessfully)
+                {
+                    Debug.Log("Unable to create user!");
+                    return;
+                }
+
+                // start retrieving values and printout
+                DataSnapshot snapshot = task.Result;
+                if (snapshot.Exists)
+                {
+                    // Look thru each existing Json for the acc
+                    foreach (DataSnapshot ds in snapshot.Children)
+                    {
+                        // Set account path reference
+                        PlayerData accPath = JsonUtility.FromJson<PlayerData>(ds.GetRawJsonValue());
+
+                        if (storedUID == accPath.UID)
+                        {
+                            Debug.Log("Data found!");
+                            // Insert post account login here:
+                            // Get path referencing found existing name
+                            var playerReference = FirebaseDatabase
+                                .DefaultInstance
+                                .RootReference
+                                .Child("players")
+                                .Child(storedUID);
+                            // Update the corresponding mission status
+                            var updateValues = new Dictionary<string, object>();
+                            updateValues.Add(currentMission, true);
+                            playerReference.UpdateChildrenAsync(updateValues);
+                            Debug.Log("Updated mission status!");
+                        }
+                    }
+                }
+            });
+        
     }
 }
