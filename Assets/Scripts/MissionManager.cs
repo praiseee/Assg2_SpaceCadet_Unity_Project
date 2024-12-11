@@ -1,6 +1,7 @@
 /*
  * Author: Jacie Thoo Yixuan
- * Author:Hoo Ying Qi Praise
+ * Author: Hoo Ying Qi Praise
+ * Author: Loh Shau Ern Shaun
  * Date: 8/12/2024
  * Description: Handles missions and final cutscenes
  */
@@ -21,6 +22,11 @@ public class MissionManager : MonoBehaviour
     /// Stores DialogueSystem
     /// </summary>
     public DialogueSystem dialogueSystem;
+
+    /// <summary>
+    /// Reference to SCDatabase that manages user authentication
+    /// </summary>
+    public SCDatabase scDatabase;
 
     /// <summary>
     /// Stores state of missions
@@ -44,6 +50,29 @@ public class MissionManager : MonoBehaviour
     }
 
     /// <summary>
+    /// Using database, skip missions that have been completed on this account before, and check if all tasks are completed
+    /// </summary>
+    public void CheckProgress(string missionName)
+    {
+        if (missionStates.ContainsKey(missionName))
+        {
+            missionStates[missionName] = true;
+            Debug.Log($"Mission '{missionName}' has already been completed!");
+
+            // Check if all missions are completed
+            if (AllMissionsCompleted())
+            {
+                Debug.Log("All missions completed! Playing cutscene...");
+                PlayTimeline(); // Play the Timeline
+            }
+        }
+        else
+        {
+            Debug.LogError($"Mission '{missionName}' not found in MissionManager.");
+        }
+    }
+
+    /// <summary>
     /// Marks mission as completed and play post-completion dialogue for the mission
     /// </summary>
     /// <param name="missionName"></param>
@@ -53,7 +82,10 @@ public class MissionManager : MonoBehaviour
         {
             missionStates[missionName] = true;
             Debug.Log($"Mission '{missionName}' completed!");
-
+            
+            // Update the task status in database
+            scDatabase.UpdateTaskStatus(missionName);
+            
             // Play post-mission dialogue
             PlayMissionDialogue(missionName, true);
 
