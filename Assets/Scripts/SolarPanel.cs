@@ -20,7 +20,6 @@ public class SolarPanel : MonoBehaviour
     {
         if (!missionCompleted)
         {
-            var solarPanel = socketInteractor.interactablesHovered[0];
 
             solarPanelSound.transform.position = socketInteractor.transform.position;
             solarPanelSound.Play();
