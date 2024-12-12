@@ -145,7 +145,7 @@ public class SCDatabase : MonoBehaviour
                 // perform task handling
                 if (task.IsFaulted)
                 {
-                    Debug.LogError("Sorry, there was an error! ERROR: " + task.Exception);
+                    Debug.Log("Sorry, there was an error! ERROR: " + task.Exception);
                     return; // exit from attempt
                 }
                 else if (!task.IsCompletedSuccessfully)
