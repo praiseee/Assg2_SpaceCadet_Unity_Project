@@ -163,6 +163,7 @@ public class SCDatabase : MonoBehaviour
 
                 // Find entered player database based on email
                 FindPlayerDatabase(playerUID);
+                missionManager.CompleteMission("LogIn");
             });
     }
 
