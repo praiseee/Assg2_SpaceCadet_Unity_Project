@@ -1,3 +1,9 @@
+/*
+ * Author: Jacie Thoo Yixuan
+ * Date: 7/12/2024
+ * Description: Handles the interactioh of planting flag
+ */
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;

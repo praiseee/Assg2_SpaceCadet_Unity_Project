@@ -1,3 +1,9 @@
+/*
+ * Author: Jacie Thoo Yixuan
+ * Date: 7/12/2024
+ * Description: Handles keycard access interaction
+ */
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
